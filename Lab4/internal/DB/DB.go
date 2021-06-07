@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	config "lab3/config"
-	prod "lab3/internal/products"
+	config "lab4/config"
+	prod "lab4/internal/products"
 )
 
 var Connect *gorm.DB

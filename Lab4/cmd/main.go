@@ -1,8 +1,8 @@
 package main
 
 import (
-db "lab3/internal/DB"
-product "lab3/internal/products"
+db "lab4/internal/DB"
+product "lab4/internal/products"
 	"os"
 )
 var Filename = string(os.Args[1])

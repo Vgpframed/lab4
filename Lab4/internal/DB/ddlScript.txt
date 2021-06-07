@@ -1,0 +1,89 @@
+
+CREATE DATABASE "Products"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Russian_Russia.1251'
+    LC_CTYPE = 'Russian_Russia.1251'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+
+
+
+
+CREATE TABLE public."TypesOfSubjects"
+(
+    id integer NOT NULL,
+    name text COLLATE pg_catalog."default",
+    CONSTRAINT "TypesOfSubjects_pkey" PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."TypesOfSubjects"
+    OWNER to postgres;
+
+
+
+
+
+CREATE TABLE public."ProductTypes"
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    name text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "ProductTypes_pkey" PRIMARY KEY (name)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."ProductTypes"
+    OWNER to postgres;
+
+
+
+
+
+CREATE TABLE public."Products"
+(
+    flag integer,
+    name text COLLATE pg_catalog."default",
+    type text COLLATE pg_catalog."default",
+    rate double precision,
+    price double precision,
+    CONSTRAINT "Products_flag_name_type_rate_price_key" UNIQUE (flag, name, type, rate, price),
+    CONSTRAINT "Products_flag_fkey" FOREIGN KEY (flag)
+        REFERENCES public."TypesOfSubjects" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "Products_type_fkey" FOREIGN KEY (type)
+        REFERENCES public."ProductTypes" (name) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."Products"
+    OWNER to postgres;
+
+
+
+
+INSERT INTO public."TypesOfSubjects"(
+	id, name)
+	VALUES (0, "mouse");
+
+INSERT INTO public."TypesOfSubjects"(
+	id, name)
+	VALUES (1, "keybord");
+
+
+INSERT INTO public."ProductTypes"(name)
+	VALUES ("wireless");
+
+
+INSERT INTO public."ProductTypes"(name)
+	VALUES ("wire");
